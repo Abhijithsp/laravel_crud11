@@ -12,7 +12,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return view('users.posts.index');
+        $posts = Posts::all();
+        return view('users.posts.index', ['posts' => $posts]);
     }
 
     /**
@@ -28,15 +29,26 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => ['required', 'max:255'],
+            'description' => ['required'],
+        ]);
+        $posts = Posts::create($validated);
+        if ($posts) {
+            return to_route('posts.index');
+        } else {
+            return "failed to save";
+        }
+
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Posts $posts)
+    public function show(Posts $post)
     {
-        return view('users.posts.show',['posts'=>$posts]);
+
+        return view('users.posts.show', ['post' => $post]);
     }
 
     /**
@@ -44,7 +56,7 @@ class PostsController extends Controller
      */
     public function edit(Posts $posts)
     {
-        return view('users.posts.edit',['posts'=>$posts]);
+        return view('users.posts.edit', ['posts' => $posts]);
     }
 
     /**
