@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Posts;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PostsController extends Controller
 {
@@ -35,9 +36,12 @@ class PostsController extends Controller
         ]);
         $posts = Posts::create($validated);
         if ($posts) {
+            Alert::success('success', 'post created successfully');
+
             return to_route('posts.index');
         } else {
-            return "failed to save";
+            Alert::error('error', 'failed to create post');
+            return to_route('posts.index');
         }
 
     }
@@ -54,24 +58,47 @@ class PostsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Posts $posts)
+    public function edit(Posts $post)
     {
-        return view('users.posts.edit', ['posts' => $posts]);
+        return view('users.posts.edit', ['post' => $post]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Posts $posts)
+    public function update(Request $request, Posts $post)
     {
-        //
+
+        $validated = $request->validate([
+            'title' => ['required', 'max:255'],
+            'description' => ['required'],
+        ]);
+        $post->update($validated);
+
+        if ($post) {
+            Alert::success('success', 'post updated successfully');
+
+            return to_route('posts.index');
+        } else {
+            Alert::error('error', 'failed to update post');
+            return to_route('posts.index');
+        }
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Posts $posts)
+    public function destroy(Posts $post)
     {
-        //
+        $post->delete();
+        if ($post) {
+            Alert::success('success', 'post deleted successfully');
+
+            return to_route('posts.index');
+        } else {
+            Alert::error('error', 'failed to deletepost');
+            return to_route('posts.index');
+        }
     }
 }
