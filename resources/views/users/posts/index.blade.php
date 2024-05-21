@@ -1,14 +1,15 @@
 <x-layout>
     <x-heading>Posts</x-heading>
-    <section>
-        <div class="flex justify-end">
-            <a href="{{route('posts.create')}}"
-               class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-                Create Post
-            </a>
-        </div>
-    </section>
-
+    @auth
+        <section>
+            <div class="flex justify-end">
+                <a href="{{route('posts.create')}}"
+                   class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                    Create Post
+                </a>
+            </div>
+        </section>
+    @endauth
     <div class="grid grid-cols-1 grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach($posts as $post)
 

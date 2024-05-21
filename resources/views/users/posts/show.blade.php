@@ -20,24 +20,26 @@
 
             </div>
         </div>
-        <section class="mt-5">
-            <div class="flex justify-end">
-                <div class="flex justify-evenly">
-                    <a href="{{route('posts.edit',$post->id)}}"
-                       class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
-                        Edit Post
-                    </a>
-                    <&nbsp>
-                    <form method="post" action="{{route('posts.destroy',$post->id)}}">
-                        @csrf
-                        @method('DELETE')
-                        <button href="{{route('posts.edit',$post->id)}}"
-                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                            Delete Post
-                        </button>
-                    </form>
+        @auth
+            <section class="mt-5">
+                <div class="flex justify-end">
+                    <div class="flex justify-evenly">
+                        <a href="{{route('posts.edit',$post->id)}}"
+                           class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
+                            Edit Post
+                        </a>
+                        <spacer class="w-4"></spacer>
+                        <form method="post" action="{{route('posts.destroy',$post->id)}}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Are you sure?')"
+                                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                Delete Post
+                            </button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        @endauth
     </div>
 </x-layout>

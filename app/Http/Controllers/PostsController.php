@@ -22,6 +22,7 @@ class PostsController extends Controller
      */
     public function create()
     {
+//        return "dasd";
         return view('users.posts.create');
     }
 
@@ -92,6 +93,7 @@ class PostsController extends Controller
     public function destroy(Posts $post)
     {
         $post->delete();
+
         if ($post) {
             Alert::success('success', 'post deleted successfully');
 
