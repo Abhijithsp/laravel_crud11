@@ -1,3 +1,3 @@
 <x-layout>
-    <h1>Welocme</h1>
+    <h1>Welocme Dashboard</h1>
 </x-layout>
