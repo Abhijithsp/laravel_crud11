@@ -26,11 +26,10 @@ class LoginController extends Controller
         ]);
 
         if (Auth::guard('web')->attempt(['user_name' => $request->user_name, 'password' => $request->password])) {
-            Alert::success('success', 'user logged in successfully');
             return to_route('posts.index');
         } else {
             Alert::error('error', 'inavlid username  or password');
-            return to_route('/');
+            return to_route('login');
         }
 
     }

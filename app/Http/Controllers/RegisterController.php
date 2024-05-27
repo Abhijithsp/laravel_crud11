@@ -29,8 +29,14 @@ class RegisterController extends Controller
         ]);
 
         auth()->login($user);
-        Alert::success('success', 'user created successfully');
+        if ($user) {
+            Alert::success('success', 'user created successfully');
+            return to_route('posts.index');
+        } else {
+            Alert::error('error', 'failed to create user');
+            return to_route('register');
+        }
 
-        return to_route('posts.index');
+
     }
 }
