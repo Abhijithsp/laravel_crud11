@@ -34,7 +34,9 @@ class PostsController extends Controller
         $validated = $request->validate([
             'title' => ['required', 'max:255'],
             'description' => ['required'],
+
         ]);
+        $validated['user_id'] = auth()->id();
         $posts = Posts::create($validated);
         if ($posts) {
             Alert::success('success', 'post created successfully');
@@ -61,6 +63,10 @@ class PostsController extends Controller
      */
     public function edit(Posts $post)
     {
+        if ($post->user_id !== auth()->id()) {
+            Alert::error('error', 'no permission to edit this post');
+            return view('users.posts.show', ['post' => $post]);
+        }
         return view('users.posts.edit', ['post' => $post]);
     }
 
@@ -74,6 +80,7 @@ class PostsController extends Controller
             'title' => ['required', 'max:255'],
             'description' => ['required'],
         ]);
+        $validated['user_id'] = auth()->id();
         $post->update($validated);
 
         if ($post) {
@@ -92,6 +99,10 @@ class PostsController extends Controller
      */
     public function destroy(Posts $post)
     {
+        if ($post->user_id !== auth()->id()) {
+            Alert::error('error', 'no permission to delete this post');
+            return view('users.posts.show', ['post' => $post]);
+        }
         $post->delete();
 
         if ($post) {
