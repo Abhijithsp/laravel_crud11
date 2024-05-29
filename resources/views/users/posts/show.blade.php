@@ -20,15 +20,18 @@
 
             </div>
         </div>
-        @auth
-            <section class="mt-5">
-                <div class="flex justify-end">
-                    <div class="flex justify-evenly">
+
+        <section class="mt-5">
+            <div class="flex justify-end">
+                <div class="flex justify-evenly">
+                    @can('update',$post)
                         <a href="{{route('posts.edit',$post->id)}}"
                            class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">
                             Edit Post
                         </a>
-                        <spacer class="w-4"></spacer>
+                    @endcan
+                    <spacer class="w-4"></spacer>
+                    @can('delete',$post)
                         <form method="post" action="{{route('posts.destroy',$post->id)}}">
                             @csrf
                             @method('DELETE')
@@ -37,9 +40,11 @@
                                 Delete Post
                             </button>
                         </form>
-                    </div>
+                    @endcan
+
                 </div>
-            </section>
-        @endauth
+            </div>
+        </section>
+
     </div>
 </x-layout>

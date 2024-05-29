@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Posts;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PostsController extends Controller
@@ -63,10 +64,7 @@ class PostsController extends Controller
      */
     public function edit(Posts $post)
     {
-        if ($post->user_id !== auth()->id()) {
-            Alert::error('error', 'no permission to edit this post');
-            return view('users.posts.show', ['post' => $post]);
-        }
+        Gate::authorize('update', $post);
         return view('users.posts.edit', ['post' => $post]);
     }
 
@@ -75,7 +73,7 @@ class PostsController extends Controller
      */
     public function update(Request $request, Posts $post)
     {
-
+        Gate::authorize('update', $post);
         $validated = $request->validate([
             'title' => ['required', 'max:255'],
             'description' => ['required'],
@@ -99,10 +97,7 @@ class PostsController extends Controller
      */
     public function destroy(Posts $post)
     {
-        if ($post->user_id !== auth()->id()) {
-            Alert::error('error', 'no permission to delete this post');
-            return view('users.posts.show', ['post' => $post]);
-        }
+        Gate::authorize('delete', $post);
         $post->delete();
 
         if ($post) {
