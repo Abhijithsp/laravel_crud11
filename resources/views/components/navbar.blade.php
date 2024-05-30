@@ -1,7 +1,7 @@
 @php use Illuminate\Support\Facades\Auth; @endphp
 <nav class="border-gray-200 bg-white dark:bg-gray-900">
     <div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
-        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="/dashboard" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo"/>
             <span class="self-center whitespace-nowrap text-2xl font-semibold dark:text-white">CRUD 11</span>
         </a>
@@ -24,7 +24,7 @@
 
                     <x-navbar-link href="/dashboard" :active="request()->is('dashboard')">Home</x-navbar-link>
                     <x-navbar-link href="/posts" :active="request()->is('posts')">Posts</x-navbar-link>
-                    <span class="text-blue-700 dark:text-blue-500">{{Auth::user()->name}}</span>
+                    <span class="text-red-700 dark:text-red-500">{{Auth::user()->name}}</span>
                     <form method="POST" action="{{route('logout')}}">
                         @csrf
                         <x-navbar-link href="/logout" :active='false'

@@ -26,6 +26,7 @@ class LoginController extends Controller
         ]);
 
         if (Auth::guard('web')->attempt(['user_name' => $request->user_name, 'password' => $request->password])) {
+
             return to_route('posts.index');
         } else {
             Alert::error('error', 'inavlid username  or password');
