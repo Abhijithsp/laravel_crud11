@@ -30,6 +30,7 @@ class LoginController extends Controller
             return to_route('posts.index');
         } else {
             Alert::error('error', 'inavlid username  or password');
+
             return to_route('login');
         }
 
@@ -40,6 +41,7 @@ class LoginController extends Controller
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return to_route('login');
     }
 }

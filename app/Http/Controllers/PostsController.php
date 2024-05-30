@@ -15,6 +15,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Posts::all();
+
         return view('users.posts.index', ['posts' => $posts]);
     }
 
@@ -23,7 +24,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-//        return "dasd";
+        //        return "dasd";
         return view('users.posts.create');
     }
 
@@ -45,6 +46,7 @@ class PostsController extends Controller
             return to_route('posts.index');
         } else {
             Alert::error('error', 'failed to create post');
+
             return to_route('posts.index');
         }
 
@@ -65,6 +67,7 @@ class PostsController extends Controller
     public function edit(Posts $post)
     {
         Gate::authorize('update', $post);
+
         return view('users.posts.edit', ['post' => $post]);
     }
 
@@ -87,6 +90,7 @@ class PostsController extends Controller
             return to_route('posts.index');
         } else {
             Alert::error('error', 'failed to update post');
+
             return to_route('posts.index');
         }
 
@@ -106,6 +110,7 @@ class PostsController extends Controller
             return to_route('posts.index');
         } else {
             Alert::error('error', 'failed to deletepost');
+
             return to_route('posts.index');
         }
     }
